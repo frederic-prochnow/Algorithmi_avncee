@@ -17,6 +17,6 @@ public class ExoSetTest {
 		ens2.add(20); ens2.add(30);
 		ens2.add(50); ens2.add(60);
 		res.add(20);  res.add(30);
-		assertEquals(res,inter(ens1,ens2));
+		assertEquals(res,ExoSet.inter(ens1,ens2));
 	}
 }

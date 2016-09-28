@@ -75,9 +75,6 @@ public class ExoSet {
 	}
 	
 	public static boolean isIn(Set<Integer> set1,Set<Integer> set2) {
-		if(set1.containsAll(set2)){
-			return true;
-		}
-		return false;
+		return set1.size() == inter(set1,set2).size();
 	}
 }

@@ -15,10 +15,11 @@ public class MaListe {
 		mListe.add(e);
 	}
 	
-	public void retrait(HashCouple<String,Integer> e){
-		mListe.remove(e);
+	public void retrait(String key){
+		mListe.remove(key);
 	}
 
+	
 	@Override
 	public String toString() {
 		return "MaListe [hCouple=" + hCouple + ", mListe=" + mListe + "]";

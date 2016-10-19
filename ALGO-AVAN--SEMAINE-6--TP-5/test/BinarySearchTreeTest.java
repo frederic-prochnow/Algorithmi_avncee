@@ -4,32 +4,45 @@ import org.junit.Test;
 
 public class BinarySearchTreeTest {
 
-	BinarySearchTree<String,Integer> bst= new BinarySearchTree<>("lol",01);
-	BinarySearchTree<String,Integer> bst2= new BinarySearchTree<>();
+	BinarySearchTree<Integer,String> bst= new BinarySearchTree<>();
+	BinarySearchTree<Integer,String> bst2= new BinarySearchTree<>();
 	
-	@Test
+	/*@Test
 	public void testSize(){
-		assertEquals(bst.size(), 1);
+		bst.add(01, "lol");
+		bst.add(02, "lil");
+		ssertEquals(bst.size(), 2);
 		assertEquals(bst2.size(), 0);
-	}
+	}*/
 	
 	@Test
 	public void testIsEmpty(){
+		bst.add(01, "lol");
 		assertFalse(bst.isEmpty());
 		assertTrue(bst2.isEmpty());
 	}
 	
 	@Test
 	public void testContainsKey(){
-		assertTrue(bst.containsKey("lol"));
-		assertFalse(bst.containsKey("yolo"));
-		assertFalse(bst2.containsKey("lol"));
+		bst.add(01, "lol");
+		assertTrue(bst.containsKey(01));
+		assertFalse(bst.containsKey(02));
+		assertFalse(bst2.containsKey(01));
 	}
 	
 	@Test
 	public void testBinarySearchTreeSearch(){
-		assertEquals(bst.binarySearchTreeSearch("lol"), bst);
-		assertEquals(bst.binarySearchTreeSearch("yolo"), null);
-		assertEquals(bst2.binarySearchTreeSearch("lol"), null);
+		bst.add(01, "lol");
+		assertEquals(bst.binarySearchTreeSearch(01), bst);
+		assertEquals(bst2.binarySearchTreeSearch(01), bst2);
+		
+	}
+	
+	@Test
+	public void testConstainsValue(){
+		bst.add(01, "lol");
+		bst.add(02, "lil");
+		assertTrue(bst.containsValue("lol"));
+		assertFalse(bst.containsValue("lili"));
 	}
 }

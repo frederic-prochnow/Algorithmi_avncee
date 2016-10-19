@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
 import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import sun.nio.cs.HistoricallyNamedCharset;
 
@@ -16,7 +18,7 @@ public class BinarySearchTree<K extends Comparable<K>,V> implements Map<K, V>{
 	
 	public BinarySearchTree(){}
 	
-	public BinarySearchTree(K key, V value){
+	public void createBinarySearchTree(K key, V value){
 		this.key = key;
 		this.value = value;
 		left = new BinarySearchTree<>();
@@ -28,7 +30,7 @@ public class BinarySearchTree<K extends Comparable<K>,V> implements Map<K, V>{
 		if(this.isEmpty())
 			return 0;
 		else
-			return(left.size()+1+right.size());
+			return (left.size()+1+right.size());
 	}
 
 	
@@ -41,17 +43,19 @@ public class BinarySearchTree<K extends Comparable<K>,V> implements Map<K, V>{
 		return booleanSearch(key);
 	}
 	
+	public void add(K key,V value){
+		binarySearchTreeSearch(key).createBinarySearchTree(key, value);
+	}
+	
 	public BinarySearchTree<K, V> binarySearchTreeSearch(Object key){
 		if(this.isEmpty())
-			return null;
+			return this;
 		else if(this.key.compareTo((K) key)<0)
-			return binarySearchTreeSearch(left);
+			return binarySearchTreeSearch(left.key);
 		else if(this.key.compareTo((K) key)>0)
-			return binarySearchTreeSearch(right);
+			return binarySearchTreeSearch(right.key);
 		else //if(this.key.equals(key))
 			return this;
-		/*else 
-			return null;*/
 	}
 	
 	public boolean booleanSearch(Object key) {
@@ -61,17 +65,30 @@ public class BinarySearchTree<K extends Comparable<K>,V> implements Map<K, V>{
 			return left.containsKey(key);
 		else if(this.key.compareTo((K) key)>0)
 			return right.containsKey(key);
-		else if(this.key.equals(key))
-			return true;
 		else 
-			return false;
+			return true;
 	}
 
 
 	public boolean containsValue(Object value) {
+		ArrayList<BinarySearchTree<K, V>> bdd = new ArrayList<>();
+		bdd.add(this);
+		while(!bdd.isEmpty()){
+			if(bdd.get(0).value.equals(value))
+				return true;
+			if (!bdd.get(0).left.isEmpty())
+				bdd.add(bdd.get(0).left);
+			if (!bdd.get(0).right.isEmpty())
+				bdd.add(bdd.get(0).right);
+			bdd.remove(0);
+		}
 		return false;
 	}
 
+
+	public String toString() {
+		return "BinarySearchTree [key=" + key + ", value=" + value + ", left=" + left + ", right=" + right + "]";
+	}
 
 	public V get(Object key) {
 		if(this.isEmpty())

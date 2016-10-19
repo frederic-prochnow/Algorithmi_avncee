@@ -40,6 +40,7 @@ public class BinarySearchTree<K extends Comparable<K>,V> implements Map<K, V>{
 	public boolean containsKey(Object key) {
 		return booleanSearch(key);
 	}
+	
 	public BinarySearchTree<K, V> binarySearchTreeSearch(Object key){
 		if(this.isEmpty())
 			return null;
@@ -49,6 +50,8 @@ public class BinarySearchTree<K extends Comparable<K>,V> implements Map<K, V>{
 			return binarySearchTreeSearch(right);
 		else //if(this.key.equals(key))
 			return this;
+		/*else 
+			return null;*/
 	}
 	
 	public boolean booleanSearch(Object key) {
@@ -58,8 +61,10 @@ public class BinarySearchTree<K extends Comparable<K>,V> implements Map<K, V>{
 			return left.containsKey(key);
 		else if(this.key.compareTo((K) key)>0)
 			return right.containsKey(key);
-		else //if(this.key.equals(key))
+		else if(this.key.equals(key))
 			return true;
+		else 
+			return false;
 	}
 
 
@@ -132,7 +137,7 @@ public class BinarySearchTree<K extends Comparable<K>,V> implements Map<K, V>{
 			bst.right.deleteMin();
 			return bst.right.value;
 		}
-		return value;//
+		return value;
 	}
 
 
